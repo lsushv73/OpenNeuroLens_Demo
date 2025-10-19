@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # Page Config (mobile friendly)
 # -------------------------------
 st.set_page_config(
-    page_title="OpenNeuroLens (Demo)",
+    page_title="Welcome to OpenNeuroLens (Demo)",
     layout="centered",  # keeps layout narrow for mobile
 )
 
