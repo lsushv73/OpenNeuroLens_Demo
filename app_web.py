@@ -13,11 +13,19 @@ st.set_page_config(
 )
 
 # -------------------------------
+# Paths (auto-detect project base)
+# -------------------------------
+BASE_DIR = Path(__file__).parent
+STATIC_DIR = BASE_DIR / "static"
+EEGB_DIR = STATIC_DIR / "EEGB"
+DEMO_DIR = STATIC_DIR / "Demo"
+
+# -------------------------------
 # Background Image
 # -------------------------------
-def set_bg(image_file):
+def set_bg():
     """Set custom background image from local path."""
-    image_path = Path("OpenNeuroLens/static/EEGB/EEGB1.jpg")
+    image_path = EEGB_DIR / "EEGB1.jpg"
     if image_path.exists():
         st.markdown(
             f"""
@@ -36,57 +44,56 @@ def set_bg(image_file):
     else:
         st.warning(f"⚠️ Background image not found at: {image_path}")
 
-# Apply background image
-set_bg("OpenNeuroLens/static/EEGB/EEGB1.jpg")
+# Apply background
+set_bg()
 
 # -------------------------------
 # Welcome Section
 # -------------------------------
-st.title("Welcom to OpenNeuroLens (Demo)")
+st.title("Welcome to OpenNeuroLens (Demo)")
 st.subheader("Low-cost, high-quality EEG analysis platform")
 st.markdown("---")
 
 # -------------------------------
-# Upload EEG File
+# Upload EEG File Section
 # -------------------------------
 st.markdown("## 🧠 Upload Your EEG File")
-uploaded_file = st.file_uploader("Choose an EEG file", type=["edf", "bdf", "set", "vhdr", "cnt", "csv"])
+
+uploaded_file = st.file_uploader(
+    "Choose an EEG file",
+    type=["edf", "bdf", "set", "vhdr", "cnt", "csv"]
+)
 
 if uploaded_file is not None:
     st.success(f"✅ Uploaded file: {uploaded_file.name}")
 
-    # "Process" button
     if st.button("🚀 Process"):
         st.markdown("### EEG Processing Results")
-
-        # Static folder path
-        result_dir = Path("OpenNeuroLens/static/Demo/")
 
         # EEG result image paths
         result_images = [
             ("ERP_Frontal_GoNoGo.png", "ERP - Frontal Go/NoGo"),
             ("ERP_Posterior_GoNoGo.png", "ERP - Posterior Go/NoGo"),
             ("PSD_Frontal_GoNoGo.png", "Power Spectrum - Frontal Go/NoGo"),
-            ("PSD_Posterior_GoNoGo.png", "Power Spectrum - Posterior Go/NoGo")
+            ("PSD_Posterior_GoNoGo.png", "Power Spectrum - Posterior Go/NoGo"),
         ]
 
-        # Display each result image if available
         for img_file, caption in result_images:
-            img_path = result_dir / img_file
+            img_path = DEMO_DIR / img_file
             if img_path.exists():
                 st.image(str(img_path), caption=caption, use_container_width=True)
             else:
                 st.warning(f"⚠️ Missing image: {img_file}")
 
-        # EEG result Excel file
-        xlsx_path = result_dir / "GoNoGo_summary.xlsx"
+        # EEG summary Excel file
+        xlsx_path = DEMO_DIR / "GoNoGo_summary.xlsx"
         if xlsx_path.exists():
             with open(xlsx_path, "rb") as f:
                 st.download_button(
                     label="📊 Download EEG Results (Go/NoGo Summary)",
                     data=f,
                     file_name="GoNoGo_summary.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 )
         else:
             st.warning("⚠️ EEG summary file 'GoNoGo_summary.xlsx' not found.")
@@ -96,9 +103,10 @@ else:
 st.markdown("---")
 
 # -------------------------------
-# EEG Dataset Selection (Original Section)
+# Explore Example EEG Datasets
 # -------------------------------
 st.markdown("### Explore Example EEG Datasets")
+
 eeg_choice = st.radio(
     "Choose EEG data to explore:",
     ("EEG1", "EEG2", "EEG3"),
@@ -108,7 +116,7 @@ eeg_choice = st.radio(
 if eeg_choice:
     st.success(f"{eeg_choice} selected")
 
-    # Simulated placeholder EEG data
+    # Simulated EEG data
     x = np.linspace(0, 1, 500)
     eeg_data = {
         "EEG1": [np.sin(10 * np.pi * x), np.sin(15 * np.pi * x), np.cos(10 * np.pi * x), np.cos(15 * np.pi * x)],
@@ -128,7 +136,7 @@ if eeg_choice:
         show_fig3 = st.checkbox("Show Figure 3")
         show_fig4 = st.checkbox("Show Figure 4")
 
-    # Draw figures based on user selection
+    # Plot figures
     if show_fig1:
         fig1, ax1 = plt.subplots()
         ax1.plot(x, signals[0])
@@ -156,7 +164,7 @@ if eeg_choice:
     st.markdown("---")
 
     # -------------------------------
-    # Simulated Table Section
+    # Simulated Excel Table
     # -------------------------------
     show_table = st.checkbox("Show analysis results table (xlsx preview)")
     if show_table:
@@ -184,6 +192,5 @@ if eeg_choice:
         for i, tab in enumerate(tabs):
             with tab:
                 st.dataframe(sheets[list(sheets.keys())[i]])
-
 else:
     st.info("Select an EEG dataset to begin.")
