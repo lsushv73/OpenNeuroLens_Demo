@@ -17,7 +17,7 @@ st.set_page_config(
 # -------------------------------
 def set_bg(image_file):
     """Set custom background image from local path."""
-    image_path = Path(image_file)
+    image_path = Path("OpenNeuroLens/static/EEGB/")
     if image_path.exists():
         st.markdown(
             f"""
@@ -42,7 +42,7 @@ set_bg("OpenNeuroLens/static/EEGB/EEGB1.jpg")
 # -------------------------------
 # Welcome Section
 # -------------------------------
-st.title("OpenNeuroLens (Demo)")
+st.title("Welcom to OpenNeuroLens (Demo)")
 st.subheader("Low-cost, high-quality EEG analysis platform")
 st.markdown("---")
 
@@ -60,7 +60,7 @@ if uploaded_file is not None:
         st.markdown("### EEG Processing Results")
 
         # Static folder path
-        result_dir = Path("OpenNeuroLens/static/Demo")
+        result_dir = Path("OpenNeuroLens/static/Demo/")
 
         # EEG result image paths
         result_images = [
