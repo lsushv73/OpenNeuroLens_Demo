@@ -17,7 +17,7 @@ st.set_page_config(
 # -------------------------------
 def set_bg(image_file):
     """Set custom background image from local path."""
-    image_path = Path("OpenNeuroLens/static/EEGB/")
+    image_path = Path("OpenNeuroLens/static/EEGB/EEGB1.jpg")
     if image_path.exists():
         st.markdown(
             f"""
