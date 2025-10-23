@@ -6,7 +6,7 @@ st.set_page_config(page_title="Login - OpenNeuroLens", layout="centered")
 # -------------------------------
 # Header
 # -------------------------------
-st.title("OpenNeuroLens — Login")
+st.title("Welcome to OpenNeuroLens")
 st.markdown("Please enter your credentials to continue to the main app.")
 
 # -------------------------------
