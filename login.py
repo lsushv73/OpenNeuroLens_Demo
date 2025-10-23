@@ -18,7 +18,7 @@ if "login_attempts" not in st.session_state:
 
 username = st.text_input("Username")
 password = st.text_input("Password", type="password")
-login = st.button("Login")
+login_btn = st.button("Login")
 
 # Correct credentials
 CORRECT_USER = "test"
@@ -27,27 +27,31 @@ CORRECT_PW = "pw"
 # -------------------------------
 # Login check
 # -------------------------------
-if login:
+if login_btn:
     st.session_state.login_attempts += 1
 
     if username == CORRECT_USER and password == CORRECT_PW:
-        st.success("Login successful! Redirecting to main app...")
-
-        # Full external URL of the main app
+        # Direct JS redirect in the same tab
         redirect_target = "https://openneurolensdemo.streamlit.app"
-
-        # JS redirect
-        js = f"""
-        <script>
-            window.location.href = "{redirect_target}";
+        js_redirect = f"""
+        <script type="text/javascript">
+            window.location.replace("{redirect_target}");
         </script>
         """
-        st.markdown(js, unsafe_allow_html=True)
+        st.markdown(js_redirect, unsafe_allow_html=True)
 
         # Fallback clickable link
-        st.markdown(f"If you are not redirected automatically, click here: [Open main app]({redirect_target})")
+        st.write("If you are not redirected automatically, click here:")
+        st.markdown(f"[Open main app]({redirect_target})")
     else:
         st.error("❌ Invalid username or password. Please try again.")
         st.info("Correct demo credentials are: `test` / `pw`")
 
 # -------------------------------
+# Footer
+# -------------------------------
+st.markdown("---")
+st.write(
+    "Demo login. This is not a secure production authentication method. "
+    "For production use, integrate proper authentication (OAuth, SSO, secure session tokens)."
+)
