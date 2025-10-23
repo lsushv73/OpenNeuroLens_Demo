@@ -14,8 +14,8 @@ IMG_PATH = BASE_DIR / "static" / "EEGB" / "ONL.png"  # adjust path if needed
 # Show image
 # -------------------------------
 if IMG_PATH.exists():
-    #st.image(str(IMG_PATH), use_column_width=True)
-    st.image(str(IMG_PATH), use_container_width=True)
+    st.image(str(IMG_PATH), width=300)
+    #st.image(str(IMG_PATH), use_container_width=True)
 else:
     st.error(f"⚠️ Image not found: {IMG_PATH}")
 
