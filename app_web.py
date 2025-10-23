@@ -70,6 +70,19 @@ if uploaded_file is not None:
     if st.button("🚀 Process"):
         st.markdown("### EEG Processing Results")
 
+        # Progress bar (simulate 3-second processing)
+        progress_text = st.empty()
+        progress_bar = st.progress(0)
+
+        for percent_complete in range(101):
+            time.sleep(0.03)  # 100 * 0.03s = 3s total
+            progress_bar.progress(percent_complete)
+            progress_text.text(f"Processing... {percent_complete}%")
+
+        progress_text.text("✅ Processing complete!")
+
+        
+
         # EEG result image paths
         result_images = [
             ("ERP_Frontal_GoNoGo.png", "ERP - Frontal Go/NoGo"),
