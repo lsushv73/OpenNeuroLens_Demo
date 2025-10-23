@@ -135,7 +135,7 @@ st.markdown("## Explore the Following Example EEG Datasets")
 
 eeg_choice = st.radio(
     "Choose EEG data to explore:",
-    ("EEG1", "EEG2", "EEG3"),
+    ("EEG1", "EEG2"),
     horizontal=True
 )
 
@@ -146,8 +146,7 @@ if eeg_choice:
     x = np.linspace(0, 1, 500)
     eeg_data = {
         "EEG1": [np.sin(10 * np.pi * x), np.sin(15 * np.pi * x), np.cos(10 * np.pi * x), np.cos(15 * np.pi * x)],
-        "EEG2": [np.sin(8 * np.pi * x), np.sin(12 * np.pi * x), np.cos(8 * np.pi * x), np.cos(12 * np.pi * x)],
-        "EEG3": [np.sin(6 * np.pi * x), np.sin(9 * np.pi * x), np.cos(6 * np.pi * x), np.cos(9 * np.pi * x)],
+        "EEG2": [np.sin(8 * np.pi * x), np.sin(12 * np.pi * x), np.cos(8 * np.pi * x), np.cos(12 * np.pi * x)],        
     }
 
     signals = eeg_data[eeg_choice]
