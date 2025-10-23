@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-C:/Users/nuser/Documents/OpenNeuroLens/app_web - 1021.py
+
 
 # -------------------------------
 # Explore Example EEG Datasets
