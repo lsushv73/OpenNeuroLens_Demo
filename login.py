@@ -8,34 +8,20 @@ st.set_page_config(page_title="Login - OpenNeuroLens", layout="centered")
 # Paths
 # -------------------------------
 BASE_DIR = Path(__file__).parent
-EEGB_DIR = BASE_DIR / "static" / "EEGB"
-BG_IMAGE = EEGB_DIR / "EEGB1.jpg"
+IMG_PATH = BASE_DIR / "static" / "EEGB" / "EEGB40.png"  # adjust path if needed
 
 # -------------------------------
-# Background
+# Show image
 # -------------------------------
-if BG_IMAGE.exists():
-    st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("file://{BG_IMAGE.resolve()}");
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+if IMG_PATH.exists():
+    #st.image(str(IMG_PATH), use_column_width=True)
+    st.image(str(IMG_PATH), use_container_width=True)
 else:
-    st.warning(f"⚠️ Background image not found at: {BG_IMAGE}")
+    st.error(f"⚠️ Image not found: {IMG_PATH}")
 
 # -------------------------------
 # Header
 # -------------------------------
-st.markdown("Welcome to:")
 st.title("OpenNeuroLens")
 st.markdown("Please enter your credentials to continue to the main app.")
 

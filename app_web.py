@@ -14,6 +14,21 @@ st.set_page_config(
 )
 
 # -------------------------------
+# Paths
+# -------------------------------
+BASE_DIR = Path(__file__).parent
+IMG_PATH = BASE_DIR / "static" / "EEGB" / "EEGB40.png"  # adjust path if needed
+
+# -------------------------------
+# Show image
+# -------------------------------
+if IMG_PATH.exists():
+    #st.image(str(IMG_PATH), use_column_width=True)
+    st.image(str(IMG_PATH), use_container_width=True)
+else:
+    st.error(f"⚠️ Image not found: {IMG_PATH}")
+
+# -------------------------------
 # Paths (auto-detect project base)
 # -------------------------------
 BASE_DIR = Path(__file__).parent
