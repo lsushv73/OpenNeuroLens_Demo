@@ -48,6 +48,31 @@ def set_bg():
 # Apply background
 set_bg()
 
+
+# -------------------------------
+# Simple Login
+# -------------------------------
+st.title("EEG Data Explorer Login")
+
+# Session state to keep track of login status
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    login_button = st.button("Login")
+
+    if login_button:
+        if username == "test1" and password == "password1":
+            st.session_state.logged_in = True
+            st.success("Login successful!")
+            st.experimental_rerun()  # refresh the page to show main content
+        else:
+            st.error("❌ Invalid username or password. Please try again.")
+else:
+
+
 # -------------------------------
 # Welcome Section
 # -------------------------------
@@ -153,7 +178,7 @@ if eeg_choice:
     st.success(f"{eeg_choice} selected")
 
     example_path = EXAMPLE_DIRS[eeg_choice]
-    st.markdown(f"### Showing data from `{example_path}`")
+    # st.markdown(f"### Showing data from `{example_path}`")
 
     # -------------------------------
     # Show EEG Figures
