@@ -48,10 +48,4 @@ if login_btn:
         st.info("Correct demo credentials are: `test` / `pw`")
 
 # -------------------------------
-# Footer
-# -------------------------------
-st.markdown("---")
-st.write(
-    "Demo login. This is not a secure production authentication method. "
-    "For production use, integrate proper authentication (OAuth, SSO, secure session tokens)."
 )
