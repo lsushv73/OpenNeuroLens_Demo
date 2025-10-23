@@ -9,7 +9,7 @@ st.set_page_config(page_title="Login - OpenNeuroLens", layout="centered")
 # -------------------------------
 BASE_DIR = Path(__file__).parent
 EEGB_DIR = BASE_DIR / "static" / "EEGB"
-BG_IMAGE = EEGB_DIR / "eegb1.png"
+BG_IMAGE = EEGB_DIR / "EEGB1.jpg"
 
 # -------------------------------
 # Background
