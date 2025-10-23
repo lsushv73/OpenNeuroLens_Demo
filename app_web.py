@@ -4,7 +4,114 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+# -------------------------------
+# Page Config
+# -------------------------------
+st.set_page_config(
+    page_title="Welcome to OpenNeuroLens (Demo)",
+    layout="centered",
+)
 
+# -------------------------------
+# Paths (auto-detect project base)
+# -------------------------------
+BASE_DIR = Path(__file__).parent
+STATIC_DIR = BASE_DIR / "static"
+EEGB_DIR = STATIC_DIR / "EEGB"
+DEMO_DIR = STATIC_DIR / "Demo"
+
+# -------------------------------
+# Background Image
+# -------------------------------
+def set_bg():
+    """Set custom background image from local path."""
+    image_path = EEGB_DIR / "EEGB1.jpg"
+    if image_path.exists():
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-image: url("file://{image_path.resolve()}");
+                background-size: cover;
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    else:
+        st.warning(f"⚠️ Background image not found at: {image_path}")
+
+# Apply background
+set_bg()
+
+# -------------------------------
+# Welcome Section
+# -------------------------------
+st.title("Welcome to OpenNeuroLens (Demo)")
+st.subheader("Low-cost, high-quality EEG analysis platform")
+st.markdown("---")
+
+# -------------------------------
+# Upload EEG File Section
+# -------------------------------
+st.markdown("## 🧠 Upload Your EEG File")
+
+uploaded_file = st.file_uploader(
+    "Choose an EEG file",
+    type=["eeg", "edf", "bdf", "set", "vhdr", "cnt", "csv"]
+)
+
+if uploaded_file is not None:
+    st.success(f"✅ Uploaded file: {uploaded_file.name}")
+
+    if st.button("🚀 Process"):
+        st.markdown("### EEG Processing Results")
+
+        # EEG result image paths
+        result_images = [
+            ("ERP_Frontal_GoNoGo.png", "ERP - Frontal Go/NoGo"),
+            ("ERP_Posterior_GoNoGo.png", "ERP - Posterior Go/NoGo"),
+            ("PSD_Frontal_GoNoGo.png", "Power Spectrum - Frontal Go/NoGo"),
+            ("PSD_Posterior_GoNoGo.png", "Power Spectrum - Posterior Go/NoGo"),
+        ]
+
+        for img_file, caption in result_images:
+            img_path = DEMO_DIR / img_file
+            if img_path.exists():
+                st.image(str(img_path), caption=caption, use_container_width=True)
+            else:
+                st.warning(f"⚠️ Missing image: {img_file}")
+
+        # EEG summary Excel file
+        xlsx_path = DEMO_DIR / "GoNoGo_summary.xlsx"
+        if xlsx_path.exists():
+            st.markdown("### 📊 EEG Summary Results (Go/NoGo)")
+
+            try:
+                # Load Excel file with multiple sheets
+                xls = pd.ExcelFile(xlsx_path)
+                sheet_names = xls.sheet_names
+                tabs = st.tabs(sheet_names)
+
+                for i, sheet_name in enumerate(sheet_names):
+                    with tabs[i]:
+                        df = pd.read_excel(xls, sheet_name=sheet_name)
+                        st.dataframe(df, use_container_width=True)
+
+            except Exception as e:
+                st.error(f"Error reading Excel file: {e}")
+
+        else:
+            st.warning("⚠️ EEG summary file 'GoNoGo_summary.xlsx' not found.")
+
+
+else:
+    st.info("👆 Upload an EEG file to begin processing.")
+
+st.markdown("---")
 
 # -------------------------------
 # Explore Example EEG Datasets
