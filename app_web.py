@@ -105,6 +105,7 @@ st.markdown("---")
 # -------------------------------
 # Explore Example EEG Datasets
 # -------------------------------
+st.markdown("#### If you don't have valid EEG files, you may")
 st.markdown("## Explore Example EEG Datasets")
 
 eeg_choice = st.radio(
