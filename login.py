@@ -12,16 +12,14 @@ EEGB_DIR = BASE_DIR / "static" / "EEGB"
 BG_IMAGE = EEGB_DIR / "EEGB1.jpg"
 
 # -------------------------------
-# Background (works in Streamlit web)
+# Background
 # -------------------------------
 if BG_IMAGE.exists():
-    # Use relative path from the app
-    bg_path = str(BG_IMAGE).replace("\\", "/")
     st.markdown(
         f"""
         <style>
         .stApp {{
-            background-image: url("{bg_path}");
+            background-image: url("file://{BG_IMAGE.resolve()}");
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -62,16 +60,18 @@ if login_btn:
     st.session_state.login_attempts += 1
 
     if username == CORRECT_USER and password == CORRECT_PW:
-        st.success("✅ Login succeeded!")
-        # Redirect (use multipage app navigation in Streamlit)
-        st.markdown(
-            """
-            <script>
-            window.location.href = '/?page=app_web';
-            </script>
-            """,
-            unsafe_allow_html=True
-        )
+        # Direct JS redirect in the same tab (optional)
+        redirect_target = "https://openneurolensdemo.streamlit.app"
+        js_redirect = f"""
+        <script type="text/javascript">
+            window.location.replace("{redirect_target}");
+        </script>
+        """
+        st.markdown(js_redirect, unsafe_allow_html=True)
+
+        # Fallback clickable link
+        st.write("✅ Login succeeded!")
+        st.markdown(f"[Open main app]({redirect_target})")
     else:
         st.error("❌ Invalid username or password. Please try again.")
         st.info("Correct demo credentials are: `test` / `pw`")
@@ -79,8 +79,4 @@ if login_btn:
 # -------------------------------
 # Footer / Demo notice
 # -------------------------------
-st.markdown("---")
-st.write(
-    "Demo login. This is not a secure production authentication method. "
-    "For production use, integrate proper authentication (OAuth, SSO, secure session tokens)."
-)
+
