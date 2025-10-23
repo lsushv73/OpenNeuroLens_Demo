@@ -22,11 +22,20 @@ IMG_PATH = BASE_DIR / "static" / "EEGB" / "ONL.png"  # adjust path if needed
 # -------------------------------
 # Show image
 # -------------------------------
-if IMG_PATH.exists():
-    #st.image(str(IMG_PATH), use_column_width=True)
-    st.image(str(IMG_PATH), use_container_width=True)
-else:
-    st.error(f"⚠️ Image not found: {IMG_PATH}")
+# -------------------------------
+# Show image
+# -------------------------------
+# Create 3 columns: left, center, right
+col1, col2, col3 = st.columns([1, 2, 1])
+
+# Put the image in the center column
+with col2:
+
+    if IMG_PATH.exists():
+        st.image(str(IMG_PATH), width=250)
+        #st.image(str(IMG_PATH), use_container_width=True)
+    else:
+        st.error(f"⚠️ Image not found: {IMG_PATH}")
 
 # -------------------------------
 # Paths (auto-detect project base)
