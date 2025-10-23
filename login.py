@@ -29,7 +29,7 @@ if login:
         # Set query param so multipage Streamlit will open the app_web page (common pattern)
         # and inject JS to redirect the browser to the page param.
         # The JS fallback avoids relying on st.experimental_rerun which can be unstable in some hosts.
-        redirect_target = "/?page=app_web"
+        redirect_target = "/?page=app_web.py"
 
         # Some deployments include a base path. If your app is served under a subpath, update redirect_target.
         js = f"""
