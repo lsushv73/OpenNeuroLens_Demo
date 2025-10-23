@@ -138,7 +138,7 @@ st.markdown("## Explore the Following Example EEG Datasets")
 
 eeg_choice = st.radio(
     "Choose EEG data to explore:",
-    ("EEG1", "EEG2"),
+    ("", "EEG1", "EEG2"),
     horizontal=True
 )
 
