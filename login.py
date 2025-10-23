@@ -34,7 +34,7 @@ if login:
         st.success("Login successful! Redirecting to main app...")
 
         # Full external URL of the main app
-        redirect_target = "https://opennerolens.streamlit.app"
+        redirect_target = "https://openneurolens.streamlit.app"
 
         # JS redirect
         js = f"""
