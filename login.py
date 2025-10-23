@@ -41,7 +41,7 @@ if login_btn:
         st.markdown(js_redirect, unsafe_allow_html=True)
 
         # Fallback clickable link
-        st.write("If you are not redirected automatically, click here:")
+        st.write("Login succeeded!")
         st.markdown(f"[Open main app]({redirect_target})")
     else:
         st.error("❌ Invalid username or password. Please try again.")
