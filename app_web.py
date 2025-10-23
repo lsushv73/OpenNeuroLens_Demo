@@ -61,7 +61,7 @@ st.markdown("## 🧠 Upload Your EEG File")
 
 uploaded_file = st.file_uploader(
     "Choose an EEG file",
-    type=["edf", "bdf", "set", "vhdr", "cnt", "csv"]
+    type=["eeg", "edf", "bdf", "set", "vhdr", "cnt", "csv"]
 )
 
 if uploaded_file is not None:
@@ -105,7 +105,7 @@ st.markdown("---")
 # -------------------------------
 # Explore Example EEG Datasets
 # -------------------------------
-st.markdown("### Explore Example EEG Datasets")
+st.markdown("## Explore Example EEG Datasets")
 
 eeg_choice = st.radio(
     "Choose EEG data to explore:",
