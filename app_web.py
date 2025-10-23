@@ -17,7 +17,7 @@ st.set_page_config(
 # Paths
 # -------------------------------
 BASE_DIR = Path(__file__).parent
-IMG_PATH = BASE_DIR / "static" / "EEGB" / "EEGB40.png"  # adjust path if needed
+IMG_PATH = BASE_DIR / "static" / "EEGB" / "ONL.png"  # adjust path if needed
 
 # -------------------------------
 # Show image
@@ -39,32 +39,6 @@ DEMO_DIR = STATIC_DIR / "Demo"
 # -------------------------------
 # Background Image
 # -------------------------------
-def set_bg():
-    """Set custom background image from local path."""
-    image_path = EEGB_DIR / "EEGB1.jpg"
-    if image_path.exists():
-        st.markdown(
-            f"""
-            <style>
-            .stApp {{
-                background-image: url("file://{image_path.resolve()}");
-                background-size: cover;
-                background-attachment: fixed;
-                background-position: center;
-                background-repeat: no-repeat;
-            }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-    else:
-        st.warning(f"⚠️ Background image not found at: {image_path}")
-
-# Apply background
-set_bg()
-
-
-
 
 # -------------------------------
 # Welcome Section

@@ -8,7 +8,7 @@ st.set_page_config(page_title="Login - OpenNeuroLens", layout="centered")
 # Paths
 # -------------------------------
 BASE_DIR = Path(__file__).parent
-IMG_PATH = BASE_DIR / "static" / "EEGB" / "EEGB40.png"  # adjust path if needed
+IMG_PATH = BASE_DIR / "static" / "EEGB" / "ONL.png"  # adjust path if needed
 
 # -------------------------------
 # Show image
