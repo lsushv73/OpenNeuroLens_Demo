@@ -2,16 +2,24 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from pathlib import Path
-
-C:/Users/nuser/Documents/OpenNeuroLens/app_web - 1021.py
 
 # -------------------------------
-# Explore Example EEG Datasets
+# Page Config (mobile friendly)
 # -------------------------------
-st.markdown("#### If you don't have valid EEG files, you may")
-st.markdown("## Explore the Following Example EEG Datasets")
+st.set_page_config(
+    page_title="Welcome to OpenNeuroLens (Demo)",
+    layout="centered",  # keeps layout narrow for mobile
+)
 
+st.title("OpenNeuroLens (Demo)")
+st.subheader("Low-cost, high-quality EEG analysis platform")
+
+st.markdown("---")
+
+# -------------------------------
+# EEG Selection
+# -------------------------------
+st.markdown("### Select EEG Dataset")
 eeg_choice = st.radio(
     "Choose EEG data to explore:",
     ("EEG1", "EEG2", "EEG3"),
@@ -21,7 +29,7 @@ eeg_choice = st.radio(
 if eeg_choice:
     st.success(f"{eeg_choice} selected")
 
-    # Simulated EEG data
+    # Simulated placeholder EEG data
     x = np.linspace(0, 1, 500)
     eeg_data = {
         "EEG1": [np.sin(10 * np.pi * x), np.sin(15 * np.pi * x), np.cos(10 * np.pi * x), np.cos(15 * np.pi * x)],
@@ -33,6 +41,7 @@ if eeg_choice:
 
     st.markdown("### Show EEG Figures")
 
+    # Checkboxes for figures 1–4
     col1, col2 = st.columns(2)
     with col1:
         show_fig1 = st.checkbox("Show Figure 1")
@@ -41,7 +50,7 @@ if eeg_choice:
         show_fig3 = st.checkbox("Show Figure 3")
         show_fig4 = st.checkbox("Show Figure 4")
 
-    # Plot figures
+    # Draw figures based on user selection
     if show_fig1:
         fig1, ax1 = plt.subplots()
         ax1.plot(x, signals[0])
@@ -69,10 +78,11 @@ if eeg_choice:
     st.markdown("---")
 
     # -------------------------------
-    # Simulated Excel Table
+    # Excel-style Table Display
     # -------------------------------
     show_table = st.checkbox("Show analysis results table (xlsx preview)")
     if show_table:
+        # Simulate multi-tab Excel file
         sheets = {
             "Summary": pd.DataFrame({
                 "Metric": ["Theta", "Alpha", "Beta"],
@@ -92,10 +102,13 @@ if eeg_choice:
         }
 
         st.write("### 📊 Multi-Tab Table Preview")
-        tabs = st.tabs(list(sheets.keys()))
+        tab_names = list(sheets.keys())
+        tabs = st.tabs(tab_names)
 
         for i, tab in enumerate(tabs):
             with tab:
-                st.dataframe(sheets[list(sheets.keys())[i]])
+                st.dataframe(sheets[tab_names[i]])
+
 else:
     st.info("Select an EEG dataset to begin.")
+
