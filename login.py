@@ -53,7 +53,7 @@ if login_btn:
 
     if username == CORRECT_USER and password == CORRECT_PW:
         # Direct JS redirect in the same tab (optional)
-        redirect_target = "https://openneurolensdemo.streamlit.app"
+        redirect_target = "https://openneurolens.streamlit.app"
         js_redirect = f"""
         <script type="text/javascript">
             window.location.replace("{redirect_target}");
